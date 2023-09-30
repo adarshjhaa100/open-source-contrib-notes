@@ -1,0 +1,6 @@
+Bazel:
+https://bazel.build/contribute/codebase#introduction
+
+
+Build:
+https://bazel.build/install/compile-source#build-bazel-on-unixes

@@ -1,0 +1,139 @@
+AlaSQL contrib guide:
+https://github.com/AlaSQL/alasql/blob/develop/CONTRIBUTING.md
+
+How to change and build:
+yarn build && node --inspect-brk testsql.js
+
+
+problem:
+
+JOIN nested query returns the values inside nested only
+
+Sample query:
+
+ SELECT * FROM ?
+    CROSS JOIN (
+        SELECT * FROM ?
+    ) B
+
+Parsed as:
+
+datafn()
+    var res = alasql.prepareFromData(params['0']);
+    if(cb)
+        res=cb(res,idx,query);
+    return res
+
+
+
+
+source.data = source.subquery(query.params, null, cb, idx).data
+
+
+var res = alasql.prepareFromData(params[idx]);
+if(cb)
+res=cb(res, idx, query);
+return res
+
+
+Inner query of join:
+var r={};
+var w=p[\"default\"];
+for(var k in w){r[k]=w[k]};
+
+Compile select *:
+
+var w=p["default"];
+for(var k in w){r[k]=w[k]};
+var w=p["B"];
+for(var k in w){r[k]=w[k]};"
+
+Compile select 1
+
+"var r={};
+var w=p["default"];
+for(var k in w){r[k]=w[k]};
+var w=p["B"];
+for(var k in w){r[k]=w[k]};"
+
+function selectfn(p,params,alasql)
+{
+var y;
+var r={};
+var w=p["default"];
+for(var k in w){r[k]=w[k]};
+var w=p["B"];
+for(var k in w){r[k]=w[k]};
+return r
+}
+
+function cb
+
+var rs = source.datafn(query, query.params, queryfn2, idx, alasql);
+
+for join:
+    function (query, params, cb, idx, alasql) 
+        return source.subquery(query.params, null, cb, idx).data;
+
+
+Statement:
+    queryfn: loop
+        source0: 
+            queryfn2: update source data
+
+        source1: 
+            subquery:
+                statement:
+                    queryfn:
+                        queryfn2:
+                            queryfn3: do the join and return table 2
+
+Expected:
+
+statement:
+    queryfn:
+        source0:
+            queryfn2: update data for 0 in 0
+        source1:
+            queryfn2: update data for 1 in 1
+                queryfn3:
+                    join with previous
+
+
+
+_____ 23/09
+
+expected:
+
+(function anonymous(g,params,alasql
+) {
+var y;
+var r = {};
+r['a'] = (y=g['a'],y===y?y:undefined);
+r['b'] = (y=g['b'],y===y?y:undefined);
+r['c'] = (y=g['c'],y===y?y:undefined);
+r['d'] =  (y=g['COUNT(a)'],y===y?y:undefined);
+r['a']=g['a'];
+return r
+})
+
+actual func:
+(function anonymous(g,params,alasql) {
+    var y;
+    var r = {};
+    for(var k in g) 
+    {
+        r[k]=g[k]
+    };
+
+    r['d']=(y=g['COUNT(a)'],y===y?y:undefined);
+    delete r['COUNT(a)']
+    return r
+})
+
+// Dirty solution
+for (const key in query.groupColumns) {
+						if (query.groupColumns[key] !== key
+							&& d[query.groupColumns[key]])
+							delete d[query.groupColumns[key]]
+					}

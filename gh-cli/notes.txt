@@ -1,0 +1,5 @@
+Installed to:
+
+/home/tcsc/Documents/expts/github-workflow-test/wflow/bin/gh --version
+
+

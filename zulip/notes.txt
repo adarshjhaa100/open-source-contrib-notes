@@ -1,0 +1,4 @@
+Setup dev Env:
+https://zulip.readthedocs.io/en/latest/development/setup-recommended.html#step-1-install-prerequisites
+
+

@@ -1,0 +1,9 @@
+Setup Dev Env: 
+https://github.com/adarshjhaa100/dolphinscheduler/blob/dev/docs/docs/en/contribute/development-environment-setup.md
+
+
+Use: Java 1.8.x
+
+Frontend: dolphinscheduler-ui (Install using pnpm)
+
+http://localhost:5173
